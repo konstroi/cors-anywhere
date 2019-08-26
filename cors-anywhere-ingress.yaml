@@ -1,0 +1,22 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: cors-anywhere
+  namespace: default
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    certmanager.k8s.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  tls:
+  - hosts:
+    - corsanywhere.informakon.com
+    secretName: cors-anywhere-tls
+  rules:
+  - host: corsanywhere.informakon.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: cors-anywhere
+          servicePort: 80

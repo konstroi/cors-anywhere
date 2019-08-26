@@ -1,0 +1,18 @@
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Certificate
+metadata:
+  name: cors-anywhere-tls
+  namespace: default
+spec:
+  secretName: cors-anywhere-tls
+  dnsNames:
+  - corsanywhere.informakon.com
+  acme:
+    config:
+    - http01:
+        ingressClass: nginx
+      domains:
+      - corsanywhere.informakon.com
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer

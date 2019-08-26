@@ -1,0 +1,23 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: cors-anywhere
+  namespace: default
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: cors-anywhere
+    spec:
+      containers:
+      - name: cors-anywhere
+        image: konstroi.azurecr.io/cors-anywhere:latest
+        env:
+        - name: CORSANYWHERE_WHITELIST
+          value: http://localhost:8100
+        resources: {}
+        ports:
+        - containerPort: 8080
+      imagePullSecrets:
+      - name: konstroiregistrykey
